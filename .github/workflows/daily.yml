@@ -5,7 +5,7 @@ on:
   # fork 后想启用定时：把下面两行取消注释（cron 用 UTC，北京时间 = UTC+8）。
   # 北京时间 每天 08:40
   schedule:
-     - cron: "30 0 * * *"
+    - cron: "30 0 * * *"
   workflow_dispatch:
 
 permissions:
