@@ -25,6 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Restore credentials cache
+        uses: actions/cache@v4
+        with:
+          path: codearts_credentials.json
+          key: codearts-creds-${{ github.run_id }}
+          restore-keys: codearts-creds-
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:

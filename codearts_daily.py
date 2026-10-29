@@ -317,7 +317,7 @@ def parse_accounts(raw):
 
 
 def identity_of(credential):
-    return (credential.get("domain_id") or credential.get("user_name")
+    return (credential.get("note") or credential.get("domain_id") or credential.get("user_name")
             or credential.get("access_key_id"))[:64]
 
 
@@ -432,7 +432,9 @@ def refresh_credential(credential):
     payload = json_of(response)
     if response.status_code < 200 or response.status_code >= 300:
         detail = first_text(payload.get("error_description"), payload.get("error"),
-                            payload.get("message")) or ("HTTP %s" % response.status_code)
+                            payload.get("message"))
+        if not detail:
+            detail = "HTTP %s: %s" % (response.status_code, response.text[:500])
         raise RuntimeError("令牌请求被拒: %s" % detail)
     data = payload.get("credentials") if isinstance(payload.get("credentials"), dict) else payload
 
