@@ -558,7 +558,7 @@ def do_checkin(credential):
     confirmed = [item for item in verified if is_confirmed(item)]
     if confirmed and len(confirmed) >= len(verified):
         total = sum(float(item["amount"] or 0) for item in confirmed)
-        return True, "福利已确认到账：%d 个活动，共 %s（本次提交 %d 笔）" % (len(confirmed), total, claimed)
+        return True, "福利已确认到账：%d 个活动，共 %s（本次提交 %d 笔）" % (len(confirmed), total, claimed), credential
     return False, "已提交 %d 笔，但回读未确认到账（上游可能延迟，稍后可重跑）" % claimed, credential
 
 
